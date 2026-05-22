@@ -1,0 +1,10 @@
+name = "QuantumSymbiosis"
+uuid = "7c8e9b40-a1b2-4c3d-be56-f7e89a0b1c2d"
+version = "0.1.0"
+authors = ["Bui Huy Khoi <nujaneko@gmail.com>"]
+
+[deps]
+GLMakie = "e9467ef8-e4e7-5192-8a1a-b1aee30e663a"
+
+[compat]
+GLMakie = "0.13.10"
