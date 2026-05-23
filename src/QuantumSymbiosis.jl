@@ -16,7 +16,7 @@ function run_quantum_lever_simulation(z_max::Float64=11.0)
     
     # 2. ĐÒN QUYẾT ĐỊNH: Ép trục tọa độ Axis3 chiếm trọn ô lưới vị trí
     # Điều này bắt buộc đồ thị phải co giãn tràn khung hình chính giữa
-    ax = Axis3(fig[1, 1], 
+    ax = Axis3(fig, 
                title = "QUANTUM SYMBIOSIS: FRACTAL HYPERGRAPH (1+1=1)", 
                titlecolor = :white, titlesize = 20,
                xlabel = "X", ylabel = "Y", zlabel = "Z",
