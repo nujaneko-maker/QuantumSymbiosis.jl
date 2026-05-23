@@ -4,25 +4,30 @@ using GLMakie
 
 export run_quantum_lever_simulation
 
+"""
+    run_quantum_lever_simulation(z_max::Float64)
+Mô phỏng Vi mô - Hình học không gian pha Bát Quái Lượng Tử 3D (1+1=1).
+Cưỡng chế layout vị trí để ép đồ thị bung to chính giữa màn hình Windows,
+cho phép dùng chuột kéo to, thu nhỏ, xoay chuyển 360 độ tự do.
+"""
 function run_quantum_lever_simulation(z_max::Float64=11.0)
-    # 1. Khởi tạo cửa sổ nền đen tuyệt đối
+    # 1. Khởi tạo cửa sổ to rộng sạch sẽ đúng tỷ lệ vàng
     fig = Figure(size = (1200, 800), backgroundcolor = :black, focus_on_show = true)
     
-    # 2. Định hình lưới 3D và nhuộm đen toàn bộ khung xương viền
-    ax = Axis3(fig, 
+    # 2. ĐÒN QUYẾT ĐỊNH: Ép trục tọa độ Axis3 chiếm trọn ô lưới vị trí
+    # Điều này bắt buộc đồ thị phải co giãn tràn khung hình chính giữa
+    ax = Axis3(fig[1, 1], 
                title = "QUANTUM SYMBIOSIS: FRACTAL HYPERGRAPH (1+1=1)", 
                titlecolor = :white, titlesize = 20,
                xlabel = "X", ylabel = "Y", zlabel = "Z",
                xlabelcolor = :white, ylabelcolor = :white, zlabelcolor = :white,
-               backgroundcolor = :black,
-               xspinecolor_1 = :black, xspinecolor_2 = :black,
-               yspinecolor_1 = :black, yspinecolor_2 = :black,
-               zspinecolor_1 = :black, zspinecolor_2 = :black)
+               backgroundcolor = :black)
     
     z_centers = [1.5, 3.5, 5.5, 7.5, 9.5]
     t_axis = 0.0:0.04:8.0
     t_fusion = 4.0
 
+    # 3. Tiến trình dệt lưới ma trận toán học Âm Dương
     for z_c in z_centers
         z_c > z_max && break
         x_yang, y_yang, z_yang = Float64[], Float64[], Float64[]
@@ -47,13 +52,12 @@ function run_quantum_lever_simulation(z_max::Float64=11.0)
         end
     end
     
+    # Khóa chặt tiêu cự camera để dễ dàng kéo to nhỏ bằng chuột thủ công
     xlims!(ax, -3.0, 3.0)
     ylims!(ax, -3.0, 3.0)
     zlims!(ax, 0.0, z_max)
     
-    # 3. Ép toàn không gian bao quanh hòa vào màn đêm (Đã sửa lỗi gán Symbol)
-    fig.scene.backgroundcolor = RGBf(0, 0, 0)
-    
+    # 4. Kích hoạt hiển thị tràn khung
     display(fig)
     return fig
 end
