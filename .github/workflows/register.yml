@@ -14,6 +14,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Kích hoạt bộ nạp gói Julia Registrator
-        uses: julia-actions/register-action@v0.3.2
+        uses: JuliaRegistries/Register.jl@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
