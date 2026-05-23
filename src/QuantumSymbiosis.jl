@@ -1,4 +1,3 @@
-
 module QuantumSymbiosis
 
 using GLMakie
@@ -6,24 +5,19 @@ using GLMakie
 export run_quantum_lever_simulation
 
 function run_quantum_lever_simulation(z_max::Float64=11.0)
-    # 1. Khởi tạo cửa sổ nền đen tuyệt đối
-    fig = Figure(size = (1200, 800), backgroundcolor = :black, focus_on_show = true)
+    # 1. Khởi tạo Figure mặc định sạch nhiễu
+    fig = Figure(size = (1200, 800))
     
-    # 2. Định hình lưới 3D và nhuộm đen toàn bộ khung xương viền
-    ax = Axis3(fig, 
-               title = "QUANTUM SYMBIOSIS: FRACTAL HYPERGRAPH (1+1=1)", 
-               titlecolor = :white, titlesize = 20,
-               xlabel = "X", ylabel = "Y", zlabel = "Z",
-               xlabelcolor = :white, ylabelcolor = :white, zlabelcolor = :white,
-               backgroundcolor = :black,
-               xspinecolor_1 = :black, xspinecolor_2 = :black,
-               yspinecolor_1 = :black, yspinecolor_2 = :black,
-               zspinecolor_1 = :black, zspinecolor_2 = :black)
+    # 2. Định hình trục 3D vị trí trung tâm
+    ax = Axis3(fig[1, 1], 
+               title = "QUANTUM SYMBIOSIS: FRACTAL HYPERGRAPH (1+1=1)",
+               xlabel = "X", ylabel = "Y", zlabel = "Z")
     
     z_centers = [1.5, 3.5, 5.5, 7.5, 9.5]
     t_axis = 0.0:0.04:8.0
     t_fusion = 4.0
 
+    # 3. Tiến trình dệt lưới ma trận toán học Âm Dương
     for z_c in z_centers
         z_c > z_max && break
         x_yang, y_yang, z_yang = Float64[], Float64[], Float64[]
@@ -41,19 +35,17 @@ function run_quantum_lever_simulation(z_max::Float64=11.0)
             end
         end
         lines!(ax, x_yang, y_yang, z_yang, color = :orange, linewidth = 2.5)
-        lines!(ax, x_yin, y_yin, z_yin, color = :dodgerblue, linewidth = 2.5)
-        meshscatter!(ax, [0.0], [0.0], [z_c], color = :magenta, markersize = 0.18)
+        lines!(ax, x_yin, y_yin, z_yin, color = :blue, linewidth = 2.5)
+        meshscatter!(ax, [0.0], [0.0], [z_c], color = :red, markersize = 0.18)
         for angle in 0:(2*pi/8):(2*pi - 0.1)
-            meshscatter!(ax, [0.5 * sin(angle)], [0.5 * cos(angle)], [z_c], color = :cyan, markersize = 0.06)
+            meshscatter!(ax, [0.5 * sin(angle)], [0.5 * cos(angle)], [z_c], color = :black, markersize = 0.06)
         end
     end
     
+    # Khóa chặt tiêu cự camera để tự do kéo giãn bằng chuột
     xlims!(ax, -3.0, 3.0)
     ylims!(ax, -3.0, 3.0)
     zlims!(ax, 0.0, z_max)
-    
-    # 3. Ép toàn không gian bao quanh hòa vào màn đêm
-    fig.scene.backgroundcolor = :black
     
     display(fig)
     return fig
