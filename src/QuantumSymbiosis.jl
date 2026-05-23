@@ -1,4 +1,3 @@
-
 module QuantumSymbiosis
 
 using GLMakie
@@ -52,8 +51,8 @@ function run_quantum_lever_simulation(z_max::Float64=11.0)
     ylims!(ax, -3.0, 3.0)
     zlims!(ax, 0.0, z_max)
     
-    # 3. Ép toàn không gian bao quanh hòa vào màn đêm
-    fig.scene.backgroundcolor = :black
+    # 3. Ép toàn không gian bao quanh hòa vào màn đêm (Đã sửa lỗi gán Symbol)
+    fig.scene.backgroundcolor = RGBf(0, 0, 0)
     
     display(fig)
     return fig
